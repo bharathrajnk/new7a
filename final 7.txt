@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Accessing XML data</title>
+</head>
+<body bgcolor="pink">
+    <center>
+        <h1>Accessing XML Data</h1>
+        <div id="message"></div>
+        <button onclick="getStudentData()">GET DATA</button>
+    </center>
+
+    <script>
+        function getStudentData() {
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var xmlDoc = xhr.responseXML;
+                        
+                        // Assuming your XML structure is like this:
+                        var firstName = xmlDoc.getElementsByTagName("firstname")[0].textContent;
+                        var lastName = xmlDoc.getElementsByTagName("lastname")[0].textContent;
+
+                        // Modify the message to include two lines of information
+                        var message = "Name: " + firstName + " " + lastName;
+                        message += "<br>Additional Information: Whatever you want to add here.";
+
+                        document.getElementById("message").innerHTML = message;
+                    } else {
+                        // Handle errors here
+                        document.getElementById("message").innerHTML = "bharath.";
+                        
+                        // Add another line here
+                        document.getElementById("message").innerHTML += "<br>raj.";
+                    }
+                }
+            };
+
+            xhr.open("GET", "school.xml", true);
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
